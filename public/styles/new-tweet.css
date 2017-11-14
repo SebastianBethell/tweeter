@@ -1,0 +1,35 @@
+.textarea {
+  width: 100%;
+  padding: 10px;
+}
+
+.text-area-title {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid black
+}
+
+.new-tweet {
+  background: lightgrey;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.counter {
+  float: right;
+}
+
+.container {
+  padding-right: 2em;
+  padding-left: 2em;
+  padding-bottom: 2em;
+}
+
+.tweet-button{
+
+}
+
+.tweet-button:hover{
+  background: hotpink;
+
+}
