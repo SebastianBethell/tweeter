@@ -1,0 +1,44 @@
+.clear {
+  clear: left;
+}
+
+.header-org {
+  background: #eef3f0;
+  position: relative;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.tweet {
+  background: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: 1px solid lightgrey;
+}
+
+.tweet-text{
+height: 80px;
+padding: 10px;
+}
+
+.user-id {
+  float: right;
+  padding-top: 20px;
+  padding-right: 10px;
+}
+
+.user-icon {
+  float: left;
+  padding: 15px;
+}
+
+.user-name {
+  float: left;
+  line-height: 20px;
+}
+
+footer {
+  border-top: thin solid #eef3f0;
+  height: 50px;
+  padding: 10px;
+}
