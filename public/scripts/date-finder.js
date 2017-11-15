@@ -16,5 +16,4 @@ $( document ).ready( function(){
 
   today = mm + '/' + dd + '/' + yyyy;
 
-  $('.footer-org').text(today);
 });
