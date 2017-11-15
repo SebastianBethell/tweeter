@@ -151,7 +151,9 @@ $(() => {
         const currentTime = Date.now();
         newTweetData[0].created_at = currentTime;
         renderTweets(newTweetData);
+        $('input[type="text"], textarea').val('');
     })
+
   }
 
 //gets called when someone trys to submit on the tweetform
