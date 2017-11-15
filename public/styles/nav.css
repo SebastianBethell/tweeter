@@ -25,3 +25,23 @@
   float: left;
 }
 
+#nav-bar .composeTweetButton {
+  opacity: .6;
+  float: right;
+  font-size: 200%;
+  height: 80px;
+  line-height: 80px;
+  margin-right: 100px;
+  border-radius: 10px;
+}
+
+#nav-bar .composeTweetButton:hover {
+  opacity: 1;
+  float: right;
+  font-size: 200%;
+  height: 80px;
+  line-height: 80px;
+  margin-right: 100px;
+}
+
+

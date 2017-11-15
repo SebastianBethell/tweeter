@@ -96,6 +96,17 @@ $(() => {
     ];
     const $form = $(this);
 
+    //validation that the user didn't leave a blank text box AND that they didn't go OVER the limit
+    if ($form.find('.textarea').val() === '' || $form.find('.textarea').val() === null) {
+      alert('Text form cannot be empty!  Please typing your Tweet before hitting submit!');
+      return;
+    };
+    if ($form.find('.textarea').val().length > 140) {
+      alert('You are limited to 140 characters per tweet.  Please reduce your tweet to that length or lower before hitting submit!');
+      return;
+    }
+
+
    //serializes the text inputted on the form then adds that and the current time to the newTweetdata array which then gets run through renderTweets
     $.post( "/tweets/", $form.serialize())
       .done(() => {
@@ -109,22 +120,28 @@ $(() => {
 
   }
 
+//when the compose button is pressed slide toggles the whole new-tweet box visable/invisable.
+//on viable focus the text box so the user can just start typing
+  $( '.composeTweetButton' ).click(function() {
+    $( '.new-tweet' ).slideToggle("slow", function() {
+      $( '.textareatweet' ).focus();
+     });
+  });
+
 /**
- * does a .ajax get request to /tweets/ and on success renders those tweets
- * @return {[type]} [description]
+ * does a .get request to /tweets/ and on success does the callback function which call renderTweets on the input
  */
   function loadTweets(){
-    $.ajax({
-      url: '/tweets/',
-      method: 'GET',
-      success: function (tweetsFromDb) {
-        renderTweets(tweetsFromDb);
-      }
+    $.get( '/tweets/', function(tweetsFromDb){
+      renderTweets(tweetsFromDb);
     });
   }
-//testing loadTweets
+//calls loadTweets
 loadTweets();
 
 //gets called when someone trys to submit on the tweetform
   $( ".tweetForm" ).submit(handleNewTweet);
+
+
+
 });
