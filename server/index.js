@@ -35,24 +35,6 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   //db.close();
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-//testing out adding tweets from form to where i save them
-// app.post("/tweets/", (req, res) => {
-//   console.log(req.body);
-// });
-
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
