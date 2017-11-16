@@ -43,6 +43,7 @@
 .tweet-text{
   height: 80px;
   padding: 10px;
+  word-wrap: break-word;
 }
 
 .user-id {
