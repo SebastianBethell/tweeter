@@ -96,7 +96,7 @@ $(() => {
     ];
     const $form = $(this);
 
-    //validation that the user didn't leave a blank text box AND that they didn't go OVER the limit
+    //validation that the user didn't leave a blank text box AND that they didn't go OVER the character limit
     if ($form.find('.textarea').val() === '' || $form.find('.textarea').val() === null) {
       alert('Text form cannot be empty!  Please typing your Tweet before hitting submit!');
       return;
@@ -105,7 +105,6 @@ $(() => {
       alert('You are limited to 140 characters per tweet.  Please reduce your tweet to that length or lower before hitting submit!');
       return;
     }
-
 
    //serializes the text inputted on the form then adds that and the current time to the newTweetdata array which then gets run through renderTweets
     $.post( "/tweets/", $form.serialize())
@@ -121,7 +120,7 @@ $(() => {
   }
 
 //when the compose button is pressed slide toggles the whole new-tweet box visable/invisable.
-//on viable focus the text box so the user can just start typing
+//on visable: focus the text box so the user can just start typing
   $( '.composeTweetButton' ).click(function() {
     $( '.new-tweet' ).slideToggle("slow", function() {
       $( '.textareatweet' ).focus();
@@ -141,7 +140,5 @@ loadTweets();
 
 //gets called when someone trys to submit on the tweetform
   $( ".tweetForm" ).submit(handleNewTweet);
-
-
 
 });
