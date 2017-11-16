@@ -8,18 +8,13 @@ const {MongoClient} = require("mongodb");
 module.exports = function makeDataHelpers(db) {
   return {
 
-    // Saves a tweet to `db`
+    // inserts new tweet to mongo `db`
     saveTweet: function(newTweet, callback) {
       db.collection("tweets").insertOne(newTweet)
       callback(null, true);
     },
 
-    // Get all tweets in `db`, sorted by newest first
-    // getTweets: function(callback) {
-    //   const sortNewestFirst = (a, b) => a.created_at - b.created_at;
-    //   callback(null, db.tweets.sort(sortNewestFirst));
-    // }
-
+    // Get all tweets in `db`, sort the array by newest first
     getTweets: function(callback) {
       db.collection("tweets").find().toArray((err, tweets) => {
         if (err) {
@@ -29,6 +24,5 @@ module.exports = function makeDataHelpers(db) {
         callback(null, tweets.sort(sortNewestFirst));
       });
     }
-
   };
 }
