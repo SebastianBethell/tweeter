@@ -3,6 +3,8 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+//const userHelper = require("../../server/lib/util/user-helper");
+
 $(() => {
 
 /**
@@ -37,7 +39,7 @@ $(() => {
 
     const header = newTweet.children("header");
      header.addClass("header-org");
-     header.append(`<img class="user-icon" src="${tweetData.user.avatars.small}" alt="bill murray">`);
+     header.append(`<img class="user-icon" src="${tweetData.user.avatars.small}">`);
      header.append(`<h1 class="user-name">${tweetData.user.name}</h1>`);
      header.append(`<div class="user-id">${tweetData.user.handle}</div>`);
      header.append(`<div class="clear"></div>`);
@@ -63,10 +65,15 @@ $(() => {
   // calls createTweetElement for each tweet
   // takes return value and prepends it to the tweets container
   function renderTweets(data) {
-    data.forEach(function(tweetData){
-      const tempTweet = createTweetElement(tweetData);
+    if (Array.isArray(data)) {
+      data.forEach(function(tweetData){
+        const tempTweet = createTweetElement(tweetData);
+        $('.tweet-database').prepend(tempTweet);
+      });
+    } else {
+      const tempTweet = createTweetElement(data);
       $('.tweet-database').prepend(tempTweet);
-    });
+    }
   }
 
 /**
@@ -74,26 +81,9 @@ $(() => {
  * @param   event [the event is submition of the form]
  * @return {[nothing]}       [instead of returning anything handleNewTweet uses renderTweets to add a new tweet to our list]
  */
-  function handleNewTweet(event) {
+  function handleNewTweet(trigger) {
     event.preventDefault();
 
-    let newTweetData = [
-      {
-        "user": {
-          "name": "Sebastian",
-          "avatars": {
-            "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-            "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-            "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-          },
-          "handle": "@Seabass"
-        },
-        "content": {
-          "text": "placeholdertext"
-        },
-        "created_at": 1461116232227
-      }
-    ];
     const $form = $(this);
 
     //validation that the user didn't leave a blank text box AND that they didn't go OVER the character limit
@@ -107,16 +97,14 @@ $(() => {
     }
 
    //serializes the text inputted on the form then adds that and the current time to the newTweetdata array which then gets run through renderTweets
-    $.post( "/tweets/", $form.serialize())
-      .done(() => {
-        const tweet = $form.find('.textarea').val();
-        newTweetData[0].content.text = tweet;
-        const currentTime = Date.now();
-        newTweetData[0].created_at = currentTime;
-        renderTweets(newTweetData);
-        $('input[type="text"], textarea').val('');
-    })
-
+    $.ajax({
+      url: "/tweets/",
+      method: "POST",
+      data: $form.serialize()
+    } )
+      .then(function() {
+        loadTweets()
+      })
   }
 
 //when the compose button is pressed slide toggles the whole new-tweet box visable/invisable.
@@ -131,9 +119,14 @@ $(() => {
  * does a .get request to /tweets/ and on success does the callback function which call renderTweets on the input
  */
   function loadTweets(){
-    $.get( '/tweets/', function(tweetsFromDb){
-      renderTweets(tweetsFromDb);
-    });
+    $.ajax({
+      url: "/tweets/",
+      method: "GET",
+      success: function(tweetsFromDb){
+       renderTweets(tweetsFromDb);
+       $('input[type="text"], textarea').val('');
+        }
+    })
   }
 //calls loadTweets
 loadTweets();
