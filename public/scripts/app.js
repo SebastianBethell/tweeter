@@ -3,14 +3,11 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-//const userHelper = require("../../server/lib/util/user-helper");
 
 $(() => {
 
 /**
  * dateFinder takes in the milliseconds since 1970 and converts it to a mm/dd/yyyy date
- * @param  {[type]} input [description]
- * @return {[type]}       [description]
  */
   function dateFinder(input){
     var today = new Date(input);
@@ -133,5 +130,4 @@ loadTweets();
 
 //gets called when someone trys to submit on the tweetform
   $( ".tweetForm" ).submit(handleNewTweet);
-
 });

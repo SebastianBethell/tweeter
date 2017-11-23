@@ -59,7 +59,7 @@
 
 .user-name {
   float: left;
-  line-height: 20px;
+  line-height: .9;
   max-width: 190px;
 }
 
